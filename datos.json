@@ -1,7 +1,7 @@
 {
   "version_bot": "5.6",
-  "ultima_actualizacion": "00:45",
-  "ultima_actualizacion_utc": "2026-11-14T23:45:39Z",
+  "ultima_actualizacion": "01:01",
+  "ultima_actualizacion_utc": "2026-11-15T00:01:00Z",
   "huso_horario": "Europe/Madrid",
   "semana_activa": "2026-W46",
   "lunes_semana": "2026-11-09",
@@ -25,7 +25,7 @@
     "restante_inicio": 360.0
   },
   "formas_equipos": {
-    "t": "2026-11-14T22:30:43Z",
+    "t": "2026-11-15T00:01:00Z",
     "e": {
       "57": "D-W-W-W-W",
       "1076": "W-L-L-W-L",
@@ -143,7 +143,7 @@
   "diagnostico": {
     "perfil_mercados": null,
     "presupuesto_dia": 22.5,
-    "partidos_api": 6,
+    "partidos_api": 10,
     "atascados": 0,
     "ausentes": 0,
     "alertas_pendientes": 0,
