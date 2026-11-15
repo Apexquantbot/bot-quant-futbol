@@ -19,7 +19,7 @@ FOOTBALL_DATA_TOKEN = os.getenv("FOOTBALL_DATA_TOKEN", "")
 THE_ODDS_API_KEY = os.getenv("THE_ODDS_API_KEY", "")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
-APP_URL = os.getenv("APP_URL", "https://franciscoserranoadt.github.io/bot-quant-futbol/")
+APP_URL = os.getenv("APP_URL", "https://apexquantbot.github.io/bot-quant-futbol/")
 
 # Huso horario oficial Peninsular (Madrid)
 TZ_MADRID = ZoneInfo("Europe/Madrid")

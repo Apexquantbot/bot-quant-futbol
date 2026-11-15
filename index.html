@@ -1277,7 +1277,7 @@
     }
 
     function compartirPartido(local, vis, mercado, cuota) {
-      const texto = `🎯 Pronóstico con Valor (+EV) — Apex Quant Analytics:\n⚽ ${local} vs ${vis}\n📌 Mercado: ${mercado}\n💰 Cuota: @${cuota}\n📱 Ver más en: https://franciscoserranoadt.github.io/bot-quant-futbol/`;
+      const texto = `🎯 Pronóstico con Valor (+EV) — Apex Quant Analytics:\n⚽ ${local} vs ${vis}\n📌 Mercado: ${mercado}\n💰 Cuota: @${cuota}\n📱 Ver más en: https://apexquantbot.github.io/bot-quant-futbol/`;
       if (navigator.share) {
         navigator.share({ title: 'Apex Quant Pick', text: texto }).catch(() => {});
       } else {
