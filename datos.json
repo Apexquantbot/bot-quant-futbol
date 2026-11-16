@@ -1,7 +1,7 @@
 {
   "version_bot": "5.6",
-  "ultima_actualizacion": "23:45",
-  "ultima_actualizacion_utc": "2026-11-16T22:45:37Z",
+  "ultima_actualizacion": "00:00",
+  "ultima_actualizacion_utc": "2026-11-16T23:00:57Z",
   "huso_horario": "Europe/Madrid",
   "semana_activa": "2026-W47",
   "lunes_semana": "2026-11-16",
@@ -32,7 +32,7 @@
       "hora_utc": "2026-11-20T19:30:00Z",
       "utcDate": "2026-11-20T19:30:00Z",
       "timestamp_ms": 1795203000000,
-      "minutos_restantes": 5564,
+      "minutos_restantes": 5549,
       "estado": "TIMED",
       "minuto_juego": null,
       "marcador": null,
@@ -95,7 +95,7 @@
       "hora_utc": "2026-11-20T19:45:00Z",
       "utcDate": "2026-11-20T19:45:00Z",
       "timestamp_ms": 1795203900000,
-      "minutos_restantes": 5579,
+      "minutos_restantes": 5564,
       "estado": "TIMED",
       "minuto_juego": null,
       "marcador": null,
@@ -158,7 +158,7 @@
       "hora_utc": "2026-11-20T20:00:00Z",
       "utcDate": "2026-11-20T20:00:00Z",
       "timestamp_ms": 1795204800000,
-      "minutos_restantes": 5594,
+      "minutos_restantes": 5579,
       "estado": "TIMED",
       "minuto_juego": null,
       "marcador": null,
@@ -211,7 +211,7 @@
   "creditos_odds_restantes": 360.0,
   "api_cuotas_estado": "ok",
   "creditos_dia": {
-    "fecha": "2026-11-16",
+    "fecha": "2026-11-17",
     "restante_inicio": 360.0
   },
   "formas_equipos": {
@@ -332,7 +332,7 @@
   },
   "diagnostico": {
     "perfil_mercados": null,
-    "presupuesto_dia": 24.0,
+    "presupuesto_dia": 25.7,
     "partidos_api": 12,
     "atascados": 0,
     "ausentes": 0,
