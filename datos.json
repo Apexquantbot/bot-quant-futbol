@@ -1,7 +1,7 @@
 {
   "version_bot": "5.6",
-  "ultima_actualizacion": "04:30",
-  "ultima_actualizacion_utc": "2026-11-16T03:30:47Z",
+  "ultima_actualizacion": "04:45",
+  "ultima_actualizacion_utc": "2026-11-16T03:45:53Z",
   "huso_horario": "Europe/Madrid",
   "semana_activa": "2026-W47",
   "lunes_semana": "2026-11-16",
@@ -32,7 +32,7 @@
       "hora_utc": "2026-11-20T19:30:00Z",
       "utcDate": "2026-11-20T19:30:00Z",
       "timestamp_ms": 1795203000000,
-      "minutos_restantes": 6719,
+      "minutos_restantes": 6704,
       "estado": "TIMED",
       "minuto_juego": null,
       "marcador": null,
@@ -95,7 +95,7 @@
       "hora_utc": "2026-11-20T19:45:00Z",
       "utcDate": "2026-11-20T19:45:00Z",
       "timestamp_ms": 1795203900000,
-      "minutos_restantes": 6734,
+      "minutos_restantes": 6719,
       "estado": "TIMED",
       "minuto_juego": null,
       "marcador": null,
@@ -158,7 +158,7 @@
       "hora_utc": "2026-11-20T20:00:00Z",
       "utcDate": "2026-11-20T20:00:00Z",
       "timestamp_ms": 1795204800000,
-      "minutos_restantes": 6749,
+      "minutos_restantes": 6734,
       "estado": "TIMED",
       "minuto_juego": null,
       "marcador": null,
@@ -215,7 +215,7 @@
     "restante_inicio": 360.0
   },
   "formas_equipos": {
-    "t": "2026-11-16T02:01:04Z",
+    "t": "2026-11-16T03:45:53Z",
     "e": {
       "57": "D-W-W-W-W",
       "1076": "W-L-L-W-L",
