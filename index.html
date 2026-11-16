@@ -81,7 +81,7 @@
               <span id="badgeTxt">24/7 ONLINE</span>
             </span>
           </h1>
-          <p id="verTxt" class="text-[9px] font-mono text-slate-500 leading-tight">Web v5.9 · Bot --</p>
+          <p id="verTxt" class="text-[9px] font-mono text-slate-500 leading-tight">Web v6.0 · Bot --</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
@@ -340,12 +340,12 @@
         <button data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-brand-primary text-slate-950 shadow-sm transition">Todas</button>
         <button data-filter="PICK" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Con pick</button>
         <button data-filter="ALERTA" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Con alerta</button>
-        <button data-filter="laliga" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">LaLiga (ESP)</button>
-        <button data-filter="premier" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Premier (ENG)</button>
-        <button data-filter="bundesliga" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Bundesliga</button>
-        <button data-filter="seriea" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Serie A</button>
-        <button data-filter="ligue1" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Ligue 1</button>
-        <button data-filter="champions" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">Champions</button>
+        <button data-filter="laliga" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">🇪🇸 LaLiga</button>
+        <button data-filter="premier" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">🇬🇧 Premier</button>
+        <button data-filter="bundesliga" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">🇩🇪 Bundesliga</button>
+        <button data-filter="seriea" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">🇮🇹 Serie A</button>
+        <button data-filter="ligue1" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">🇫🇷 Ligue 1</button>
+        <button data-filter="champions" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white transition">🇪🇺 Champions</button>
       </div>
     </div>
 
@@ -739,7 +739,7 @@
     // =========================================================================
     // ESTADO DEL BOT (frescura de datos, API de cuotas, créditos)
     // =========================================================================
-    const VERSION_WEB = '5.9';
+    const VERSION_WEB = '6.0';
     function actualizarVersion() {
       const el = document.getElementById('verTxt');
       if (!el) return;
@@ -1040,6 +1040,9 @@
       container.innerHTML = lista.map(p => renderizarTarjetaPartido(p)).join('');
     }
 
+    const BANDERAS = { laliga: '🇪🇸', laliga2: '🇪🇸', copadelrey: '🇪🇸', premier: '🇬🇧', bundesliga: '🇩🇪', seriea: '🇮🇹', ligue1: '🇫🇷', champions: '🇪🇺' };
+    function ligaConBandera(p) { const b = BANDERAS[p.liga_key]; return (b ? b + ' ' : '') + (p.liga || 'Competición'); }
+
     function renderizarTarjetaPartido(p) {
       const esEnJuego = p.estado === 'IN_PLAY' || p.estado === 'PAUSED' || p.estado === 'HT';
       const esFinalizado = p.estado === 'FINISHED';
@@ -1094,7 +1097,7 @@
         <div onclick="toggleDetalle('${idDet}')" class="px-3.5 py-3 rounded-2xl bg-brand-card/80 border border-brand-border/70 hover:border-slate-700 transition space-y-2 cursor-pointer">
           <div class="flex items-center justify-between gap-2">
             <div class="flex items-center gap-2 min-w-0">
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700 whitespace-nowrap">${p.liga || 'Competición'}</span>
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700 whitespace-nowrap">${ligaConBandera(p)}</span>
               <span class="text-[11px] text-slate-400 font-mono whitespace-nowrap">${fechaHoraDisplay}</span>
             </div>
             <div class="flex-shrink-0">${badgeEstado}</div>
@@ -1169,7 +1172,7 @@
         <div class="p-4 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition space-y-3 shadow-md">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">${p.liga || 'Competición'}</span>
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">${ligaConBandera(p)}</span>
               <span class="text-[11px] text-slate-400 font-mono">${fechaHoraDisplay}</span>
             </div>
             <div>${badgeEstado}</div>
