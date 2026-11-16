@@ -935,10 +935,11 @@
       const tiposMercado = [['1X2', '🏆 Victoria (1X2)'], ['DOBLE', '🛡️ Doble oportunidad'], ['GOLES', '⚽ Goles (más/menos)'], ['BTTS', '🤝 Ambos marcan'], ['COMBO_MERCADOS', '🧩 Combinada de mercados'], ['COMBINADA', '🔗 Combinada varios partidos']]
         .map(([k, t]) => [t, resumenPicks(picks.filter(p => p.grupo !== 'CONTROL' && tipoPick(p) === k))]).filter(x => x[1].n);
       const origenes = [['Con cuotas reales', resumenPicks(picks.filter(p => p.grupo !== 'CONTROL' && !p.solo_modelo))], ['Solo modelo (cuota mínima)', resumenPicks(picks.filter(p => p.grupo !== 'CONTROL' && p.solo_modelo))]].filter(x => x[1].n);
+      const rTot = resumenPicks(picks.filter(p => p.grupo !== 'CONTROL'));
       const tarjetaMercados = (tiposMercado.length || origenes.length) ? `
         <div class="p-3 rounded-2xl bg-brand-card border border-brand-border">
           <span class="text-[10px] font-bold uppercase tracking-wide text-slate-400 block mb-1.5">Por mercado y por origen</span>
-          <table class="w-full text-[11px] font-mono"><tbody>${tiposMercado.map(filaRes).join('')}${origenes.length ? '<tr><td colspan="4" class="pt-2"></td></tr>' + origenes.map(filaRes).join('') : ''}</tbody></table>
+          <table class="w-full text-[11px] font-mono"><tbody>${tiposMercado.map(filaRes).join('')}${origenes.length ? '<tr><td colspan="4" class="pt-2"></td></tr>' + origenes.map(filaRes).join('') : ''}${rTot.n ? '<tr class="border-t-2 border-slate-600"><td class="py-1.5 text-white font-extrabold">Σ Total</td><td class="text-right text-white font-extrabold">' + pctTxt(rTot) + '</td><td class="text-right text-slate-300 font-bold">' + rTot.w + 'V-' + (rTot.n - rTot.w) + 'D</td><td class="text-right font-extrabold ' + colorNum(rTot.net) + '">' + fmtU(rTot.net) + '</td></tr>' : ''}</tbody></table>
           <p class="text-[9px] text-slate-500 mt-1.5">Pronósticos enviados (Telegram y combinadas); no incluye Control.</p>
         </div>` : '';
 
