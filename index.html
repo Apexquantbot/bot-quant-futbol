@@ -81,7 +81,7 @@
               <span id="badgeTxt">24/7 ONLINE</span>
             </span>
           </h1>
-          <p id="verTxt" class="text-[9px] font-mono text-slate-500 leading-tight">Web v6.0 · Bot --</p>
+          <p id="verTxt" class="text-[9px] font-mono text-slate-500 leading-tight">Web v6.1 · Bot --</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
@@ -739,7 +739,7 @@
     // =========================================================================
     // ESTADO DEL BOT (frescura de datos, API de cuotas, créditos)
     // =========================================================================
-    const VERSION_WEB = '6.0';
+    const VERSION_WEB = '6.1';
     function actualizarVersion() {
       const el = document.getElementById('verTxt');
       if (!el) return;
@@ -908,25 +908,37 @@
         mesObj.total[p.grupo].push(p);
         (mesObj.semanas[s] = mesObj.semanas[s] || vacio())[p.grupo].push(p);
       });
-      const celdas = (g, claseExtra) => {
-        const a = resumenPicks(g.TG), b = resumenPicks(g.CONTROL), c = resumenPicks(g.COMBI);
-        const cel = (r) => `<td class="${claseExtra} text-right ${colorNum(r.net)}">${r.n ? fmtU(r.net) : '--'}<span class="text-slate-500"> (${r.n})</span></td>`;
-        return cel(a) + cel(b) + (cb.length ? cel(c) : '');
-      };
+      // Vista por mes en bloques (en el móvil la tabla quedaba apelotonada):
+      // arriba el mes y su total; debajo, una casilla por grupo (Telegram, Control, Combi)
+      const gruposMes = [['TG', 'Telegram', '#00f59b'], ['CONTROL', 'Control', '#94a3b8']]
+        .concat(cb.length ? [['COMBI', 'Combi', '#a78bfa']] : []);
+      const totalDe = (g) => resumenPicks([...g.TG, ...g.COMBI]);   // total sin Control
+      const casillas = (g, pequeno) => `<div class="grid gap-1.5 mt-1.5" style="grid-template-columns:repeat(${gruposMes.length},minmax(0,1fr))">${gruposMes.map(([k, t, col]) => {
+          const r = resumenPicks(g[k]);
+          return `<div class="rounded-lg bg-slate-900/70 border border-slate-800 px-1.5 ${pequeno ? 'py-1' : 'py-1.5'} text-center min-w-0">
+            <div class="flex items-center justify-center gap-1 text-[8px] uppercase tracking-wide text-slate-500 font-bold"><span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:${col}"></span><span class="truncate">${t}</span></div>
+            <div class="font-mono font-bold ${pequeno ? 'text-[11px]' : 'text-[12px]'} ${r.n ? colorNum(r.net) : 'text-slate-600'} leading-tight mt-0.5">${r.n ? (r.net >= 0 ? '+' : '') + r.net.toFixed(2) : '--'}</div>
+            <div class="font-mono text-[9px] text-slate-500 leading-tight">${r.n} pick${r.n === 1 ? '' : 's'}</div>
+          </div>`;
+        }).join('')}</div>`;
+      const cabecera = (izq, r, grande) => `<div class="flex items-center justify-between gap-2">
+          <div class="min-w-0">${izq}</div>
+          <div class="text-right shrink-0 font-mono"><span class="${grande ? 'text-[14px]' : 'text-[12px]'} font-extrabold ${r.n ? colorNum(r.net) : 'text-slate-500'}">${r.n ? fmtU(r.net) : '--'}</span><span class="text-[9px] text-slate-500"> (${r.n})</span></div>
+        </div>`;
       const filas = Object.keys(meses).sort().reverse().map(m => {
         const [y, mm] = m.split('-');
         const nombre = mm ? `${MESES_ES[parseInt(mm, 10) - 1] || mm} ${y}` : m;
         const clave = m.replace(/[^0-9A-Za-z-]/g, '_');
         const semanas = Object.keys(meses[m].semanas).sort().reverse();
-        const filaMes = `<tr class="border-t border-slate-800/80 cursor-pointer active:bg-slate-800/40" onclick="toggleMes('${clave}')">
-          <td class="py-1.5 pr-2 text-slate-300 whitespace-nowrap"><span id="chev-${clave}" class="inline-block w-3 text-brand-primary">▸</span>${nombre}<span class="text-slate-500 text-[9px]"> · ${semanas.length} sem.</span></td>
-          ${celdas(meses[m].total, 'py-1.5')}
-        </tr>`;
-        const filasSem = semanas.map(s => `<tr class="sem-${clave} hidden bg-slate-900/50">
-          <td class="py-1 pl-4 pr-2 text-[10px] text-slate-400 whitespace-nowrap">${etiquetaSemana(s)}</td>
-          ${celdas(meses[m].semanas[s], 'py-1 text-[10px]')}
-        </tr>`).join('');
-        return filaMes + filasSem;
+        const bloqueMes = `<div class="pt-2.5 pb-2 border-t border-slate-800/80 first:border-t-0 cursor-pointer active:bg-slate-800/30 rounded-lg" onclick="toggleMes('${clave}')">
+          ${cabecera(`<span id="chev-${clave}" class="inline-block w-3 text-brand-primary">▸</span><span class="text-[13px] font-bold text-white">${nombre}</span><span class="text-slate-500 text-[10px]"> · ${semanas.length} sem.</span>`, totalDe(meses[m].total), true)}
+          ${casillas(meses[m].total, false)}
+        </div>`;
+        const bloquesSem = semanas.map(s => `<div class="sem-${clave} hidden ml-3 pl-2.5 border-l-2 border-slate-700/70 py-1.5 mb-1">
+          ${cabecera(`<span class="text-[11px] text-slate-300 font-semibold">${etiquetaSemana(s)}</span>`, totalDe(meses[m].semanas[s]), false)}
+          ${casillas(meses[m].semanas[s], true)}
+        </div>`).join('');
+        return bloqueMes + bloquesSem;
       }).join('');
 
       // Desglose por mercado y por origen (igual que en Tenis)
@@ -968,10 +980,8 @@
         </div>
         <div class="p-3 rounded-2xl bg-brand-card border border-brand-border">
           <span class="text-[10px] font-bold uppercase tracking-wide text-slate-400 block mb-1.5">Por mes · toca un mes para ver sus semanas</span>
-          <table class="w-full text-[11px] font-mono">
-            <thead><tr class="text-[9px] uppercase text-slate-500"><th class="text-left font-bold">Mes</th><th class="text-right font-bold">Telegram</th><th class="text-right font-bold">Control</th>${cb.length ? '<th class="text-right font-bold">Combi</th>' : ''}</tr></thead>
-            <tbody>${filas}</tbody>
-          </table>
+          <div>${filas}</div>
+          <p class="text-[9px] text-slate-500 mt-1.5">Total = Telegram + combinadas (sin Control).</p>
         </div>
         ${tarjetaMercados}
         ${aviso}
